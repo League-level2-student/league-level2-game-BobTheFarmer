@@ -3,12 +3,15 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class GamePanel extends JPanel implements KeyListener {
+public class GamePanel extends JPanel implements KeyListener, MouseListener {
 //Variables
 	static int MENU = 0;
 	static int GAME = 1;
@@ -20,6 +23,8 @@ public class GamePanel extends JPanel implements KeyListener {
 	Font subTitleFont = new Font("Oxygen", Font.PLAIN, 36);
 	
 	Player player = new Player(Game.WIDTH/2, Game.HEIGHT/2, 50, 50);
+
+	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 	
 	void game() {
 	//Background
@@ -28,6 +33,10 @@ public class GamePanel extends JPanel implements KeyListener {
 		
 	//Draw Game
 		player.draw(g);
+		//Loop other objects
+			for (int i = 0; i < bullets.size(); i++) {
+				bullets.get(i).draw(g);
+			}
 	}
 	void setup() {
 		
@@ -103,6 +112,25 @@ public class GamePanel extends JPanel implements KeyListener {
 		}
 	}
 	
+	public void mouseClicked(MouseEvent e) {
+		System.out.println("Mouse");
+	//Get direction to shoot, and send to new Bullet
+		int xToPlayer =  e.getX() - player.getX();
+		int yToPlayer =  e.getY() - player.getY();
+		
+	//Make the Bullet
+		Bullet bullet = new Bullet(player.getX(), player.getY(), 30, 30);
+		bullets.add(bullet);
+		
+	//Find direction to shoot and send
+		bullet.xMovment = xToPlayer/30;
+		bullet.yMovment = yToPlayer/30;
+	}
+	
+	@Override public void mousePressed(MouseEvent e) {}
+	@Override public void mouseReleased(MouseEvent e) {}
+	@Override public void mouseEntered(MouseEvent e) {}
+	@Override public void mouseExited(MouseEvent e) {}
 	@Override public void keyTyped(KeyEvent e) {}
 	@Override public void keyReleased(KeyEvent e) {}
 }

@@ -23,7 +23,7 @@ public class Player extends GameObject{
 		void draw(Graphics g) {
 			if (gotImage) {
 				g.drawImage(image, x, y, width, height, null);
-			} else {
+			} {
 				g.setColor(Color.BLUE);
 				g.fillRect(x, y, width, height);
 			}
@@ -43,6 +43,12 @@ public class Player extends GameObject{
 		x+=speed;
 	}
 	
+	int getX() {
+		return x;
+	}
+	int getY() {
+		return y;
+	}
 	
 	
 	

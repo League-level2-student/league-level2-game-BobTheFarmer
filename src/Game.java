@@ -7,8 +7,6 @@ import javax.swing.Timer;
 
 public class Game implements ActionListener {
 	//Variables
-	
-		
 		public static int WIDTH	= 1000;
 		public static int HEIGHT= 1000;
 		
@@ -30,7 +28,7 @@ public class Game implements ActionListener {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.addKeyListener(gamePanel);
-	
+		frame.addMouseListener(gamePanel);
 		
 	//Setup game timer
 		Timer timer = new Timer(60/1000, this);
