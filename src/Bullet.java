@@ -14,24 +14,71 @@ public class Bullet extends GameObject{
 		this.width = width;
 		this.height = height;
 	}
-	//WORKING ON THIS
 	int xMovment;
 	int yMovment;
 	int cooldown = 0;
+	int cooldown2 = 0;
+	boolean deadY = false;
+	boolean deadX = false;
+	
 	void draw(Graphics g) {
-		System.out.println("Draw");
-		x+=xMovment;
-		y+=yMovment;
-		g.setColor(Color.CYAN);
-		g.fillRect(x, y, width, height);
-		if(cooldown==20) {
-		yMovment+=1;
-		cooldown = 0;
+		//Draw+Apply forces
+			x+=xMovment;
+			y+=yMovment;
+			g.setColor(Color.CYAN);
+			g.fillRect(x, y, width, height);
+			
+			cooldown++;
+			cooldown2++;
+		//Gravity
+			if(cooldown==20 && !deadY) {
+				yMovment+=1;
+				cooldown = 0;
+			}
+
+			
+		//X slow
+			if(!deadX && cooldown2>100) {
+				//Slow
+					if(xMovment>=1) {
+						xMovment-=1;
+					} 
+					if(xMovment<=-1) {
+						xMovment+=1;
+					}
+				if(xMovment == 0) {deadX=true;}
+				cooldown2=0;
+				}
+			
+		//Bounces
+		//Check for upward bounce
+			if(y>=Game.HEIGHT-75) {
+				y=Game.HEIGHT-75;
+
+			if(!deadY) {
+				yMovment = 0-yMovment+2;
+				
+				//Check for deadY
+					if(yMovment < 2 && yMovment >-2) {
+						deadY=true;
+						yMovment = 0;
+					}
+			}
+			
+	
+			
+			
 		}
-		cooldown++;
-		if(y>Game.HEIGHT-100) {
-			y=Game.HEIGHT-100;
-			yMovment = 10+(0-yMovment);
-		}
+		//Upward
+			if(y<0) {
+				yMovment = 0-yMovment;
+			}
+		//Right/Left
+			if(x<0) {
+				xMovment = 0-xMovment;
+			}
+			if(x>Game.WIDTH) {
+				xMovment = 0-xMovment;
+			}
 }
 }

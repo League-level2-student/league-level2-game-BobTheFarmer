@@ -113,7 +113,6 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 	}
 	
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("Mouse");
 	//Get direction to shoot, and send to new Bullet
 		int xToPlayer =  e.getX() - player.getX();
 		int yToPlayer =  e.getY() - player.getY();
