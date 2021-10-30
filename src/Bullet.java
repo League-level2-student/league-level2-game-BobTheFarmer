@@ -22,6 +22,7 @@ public class Bullet extends GameObject{
 	boolean deadX = false;
 	
 	void draw(Graphics g) {
+		super.update();
 		//Draw+Apply forces
 			x+=xMovment;
 			y+=yMovment;
@@ -52,8 +53,9 @@ public class Bullet extends GameObject{
 			
 		//Bounces
 		//Check for upward bounce
-			if(y>=Game.HEIGHT-75) {
-				y=Game.HEIGHT-75;
+			//ALSO WORKING ON THIS BOTTOM NOT CORRCT
+			if(y>=Game.HEIGHT-40) {
+				y=Game.HEIGHT-40;
 
 			if(!deadY) {
 				yMovment = 0-yMovment+2;

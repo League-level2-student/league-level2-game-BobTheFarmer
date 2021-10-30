@@ -14,7 +14,7 @@ public class Game implements ActionListener {
 		JPanel panel;
 		
 		GamePanel gamePanel;
-	
+		EnemySpawner enemySpawner = new EnemySpawner();
 	
 	public void run() {
 	//Objects setup
@@ -33,7 +33,6 @@ public class Game implements ActionListener {
 	//Setup game timer
 		Timer timer = new Timer(60/1000, this);
 		timer.start();
-		
 	}
 
 	@Override

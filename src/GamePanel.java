@@ -23,6 +23,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 	Font subTitleFont = new Font("Oxygen", Font.PLAIN, 36);
 	
 	Player player = new Player(Game.WIDTH/2, Game.HEIGHT/2, 50, 50);
+	EnemySpawner enemySpawner = new EnemySpawner();
 
 	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 	
@@ -37,6 +38,18 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 			for (int i = 0; i < bullets.size(); i++) {
 				bullets.get(i).draw(g);
 			}
+	//Manage Enemys
+		enemySpawner.manageEnemys(player, g);
+	}
+	
+	void checkCollison() {
+	//Bullets
+		for (int i = 0; i < bullets.size(); i++) {
+			//WORKING ON THIS, make bullets be able to be picked up if dead x and y
+			/*if(bullets.get(i).deadX && bullets.get(i).deadY) {
+				System.out.println("TEST");
+			}*/
+		}
 	}
 	void setup() {
 		
@@ -118,7 +131,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 		int yToPlayer =  e.getY() - player.getY();
 		
 	//Make the Bullet
-		Bullet bullet = new Bullet(player.getX(), player.getY(), 30, 30);
+		Bullet bullet = new Bullet(player.getX(), player.getY(), 10, 10);
 		bullets.add(bullet);
 		
 	//Find direction to shoot and send
