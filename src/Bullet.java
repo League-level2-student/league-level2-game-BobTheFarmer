@@ -2,10 +2,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Bullet extends GameObject{
-	int x;
-	int y;
-	int width;
-	int height;
+
 	
 	Bullet(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -21,7 +18,7 @@ public class Bullet extends GameObject{
 	boolean deadY = false;
 	boolean deadX = false;
 	
-	void draw(Graphics g) {
+	void draw(Graphics g) {		
 		super.update();
 		//Draw+Apply forces
 			x+=xMovment;
@@ -53,15 +50,14 @@ public class Bullet extends GameObject{
 			
 		//Bounces
 		//Check for upward bounce
-			//ALSO WORKING ON THIS BOTTOM NOT CORRCT
-			if(y>=Game.HEIGHT-40) {
-				y=Game.HEIGHT-40;
+			if(y>=Game.HEIGHT-55) {
+				y=Game.HEIGHT-55;
 
 			if(!deadY) {
-				yMovment = 0-yMovment+2;
+				yMovment = 0-yMovment+1;
 				
 				//Check for deadY
-					if(yMovment < 2 && yMovment >-2) {
+					if(yMovment < 1 && yMovment >-1) {
 						deadY=true;
 						yMovment = 0;
 					}

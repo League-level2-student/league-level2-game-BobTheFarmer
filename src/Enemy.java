@@ -3,10 +3,7 @@ import java.awt.Graphics;
 
 public class Enemy extends GameObject{
 
-	int x;
-	int y; 
-	int width;
-	int height;
+
 	int movmentCooldown = 0;
 	Enemy(int x, int y, int width, int height) {
 		super(x, y, width, height);

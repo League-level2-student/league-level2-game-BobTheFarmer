@@ -19,7 +19,7 @@ public class Game implements ActionListener {
 	public void run() {
 	//Objects setup
 			gamePanel = new GamePanel();
-			gamePanel.setup();
+			gamePanel.purgeAll();
 	//Window setup
 		frame = new JFrame("Game");
 		panel = new JPanel();

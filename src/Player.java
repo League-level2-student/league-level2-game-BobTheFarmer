@@ -21,12 +21,15 @@ public class Player extends GameObject{
 		}
 	}
 		void draw(Graphics g) {
-			if (gotImage) {
+			super.update();
+			/*if (gotImage) {
 				g.drawImage(image, x, y, width, height, null);
-			} {
+			} else {*/
 				g.setColor(Color.BLUE);
 				g.fillRect(x, y, width, height);
-			}
+			//}
+			
+			
 		}
 	
 //Movment
