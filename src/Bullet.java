@@ -1,8 +1,14 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
 
 public class Bullet extends GameObject{
 
+	public static BufferedImage image;
+	public static boolean needImage = true;
+	public static boolean gotImage = false;	
 	
 	Bullet(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -10,6 +16,10 @@ public class Bullet extends GameObject{
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		
+		if (needImage) {
+		    loadImage("bone.png");
+		}
 	}
 	int xMovment;
 	int yMovment;
@@ -20,11 +30,20 @@ public class Bullet extends GameObject{
 	
 	void draw(Graphics g) {		
 		super.update();
+		
+		
 		//Draw+Apply forces
+		
+		
 			x+=xMovment;
 			y+=yMovment;
-			g.setColor(Color.CYAN);
-			g.fillRect(x, y, width, height);
+			if (gotImage) {
+				g.drawImage(image, x, y, width, height, null);
+			} else {
+				g.setColor(Color.MAGENTA);
+				g.fillOval(x, y, width, height);
+			}
+			
 			
 			cooldown++;
 			cooldown2++;
@@ -79,4 +98,15 @@ public class Bullet extends GameObject{
 				xMovment = 0-xMovment;
 			}
 }
+	void loadImage(String imageFile) {
+	    if (needImage) {
+	        try {
+	            image = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
+		    gotImage = true;
+	        } catch (Exception e) {
+	            
+	        }
+	        needImage = false;
+	    }
+	}
 }

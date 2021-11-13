@@ -22,13 +22,23 @@ public class Player extends GameObject{
 	}
 		void draw(Graphics g) {
 			super.update();
-			/*if (gotImage) {
+			if (gotImage) {
 				g.drawImage(image, x, y, width, height, null);
-			} else {*/
+			} else {
 				g.setColor(Color.BLUE);
 				g.fillRect(x, y, width, height);
-			//}
-			
+			}
+				
+			//Check if out
+				if(super.y>Game.HEIGHT-90) {
+					super.y=Game.HEIGHT-90;
+				} else if(y<0) {
+					y=0;
+				} else if(super.x>Game.WIDTH-50) {
+					super.x=Game.WIDTH-50;
+				} else if(x<0) {
+					x=0;
+				}
 			
 		}
 	

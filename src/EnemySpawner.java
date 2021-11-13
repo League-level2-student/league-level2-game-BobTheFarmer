@@ -13,7 +13,7 @@ public class EnemySpawner implements ActionListener {
 	Random rando = new Random();
 	int spawnX;
 	int spawnY;
-	
+	int speed = 1000;
 	
 	EnemySpawner() {
 		t = new Timer(1000, this);
@@ -27,21 +27,27 @@ public class EnemySpawner implements ActionListener {
 		}
 	}
 	
+	void updateTimer(int score) {
+	//Change timer speed to match score
+		speed = 1000-(score*20);
+		if(speed<200) {
+			speed = 100;
+		}
+		t.setDelay(speed);
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-	//MAKE ENEMYS
+		
+	//MAKE ENEMYS	
 		//Choose a edge to spawn on
-			if(rando.nextInt(3) == 0) {
+			int randomNum = rando.nextInt(3);
+			if(randomNum == 0) {
 				spawnX = Game.WIDTH;
 				spawnY = rando.nextInt(Game.HEIGHT);
-			} else if(rando.nextInt(3) == 1) {
+			} else if(randomNum == 1) {
 				spawnX = 0;
 				spawnY = rando.nextInt(Game.HEIGHT);
-			} else if(rando.nextInt(3) == 2) {
-				spawnY = Game.HEIGHT;
-				spawnX = rando.nextInt(Game.WIDTH);
-			} else if(rando.nextInt(3) == 3) {
+			} else if(randomNum == 2) {
 				spawnY = 0;
 				spawnX = rando.nextInt(Game.WIDTH);
 			} 

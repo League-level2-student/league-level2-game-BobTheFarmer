@@ -27,6 +27,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 	EnemySpawner enemySpawner = new EnemySpawner();
 
 	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+	private int score = 0;
 	
 	void game() {
 	//Background
@@ -34,12 +35,13 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 	
 	//Draw Game
-		//numBullets
+		//numBullets + score
 			g.setColor(Color.WHITE);
 			g.setFont(subTitleFont);
 			g.drawString("Bullets: " + numBullets, Game.WIDTH-220, 30);
-		player.draw(g);
-		
+			g.drawString("Score: " + score, Game.WIDTH-220, 60);
+		//Game
+			player.draw(g);
 		//Loop other objects
 			for (int i = 0; i < bullets.size(); i++) {
 				bullets.get(i).draw(g);
@@ -71,16 +73,20 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 
 	}
 	void purgeAll() {
-		//WORKING ON THIS; RESET GAME
+	//Reset game
 	//Bullets
 		for (int i = 0; i < bullets.size(); i++) {
 			bullets.get(i).isActive = false;
 		}
+		numBullets = 10;
 	//Enemys
 		for (int i = 0; i < enemySpawner.enemys.size(); i++) {
 			enemySpawner.enemys.get(i).isActive = false;
 		}
+	//Player
+		player = new Player(Game.WIDTH/2, Game.HEIGHT/2, 50, 50);
 	}
+	
 
 	void checkCollison() {
 	//Bullets
@@ -95,7 +101,8 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 			for (int j = 0; j < enemySpawner.enemys.size(); j++) {
 				if(bullets.get(i).collisionBox.intersects(enemySpawner.enemys.get(j).collisionBox)) {
 					enemySpawner.enemys.get(j).isActive = false;
-				
+					score++;
+					enemySpawner.updateTimer(score);
 				}
 			}
 		
@@ -135,6 +142,10 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 		g.setFont(subTitleFont);
 		g.drawString("Enter to start", 380, 400);
 		g.drawString("Space for Instructions", 305, 475);
+		
+	//Dont delete
+		score = 0;
+		enemySpawner.updateTimer(score);
 	}
 
 	void end() {
@@ -146,7 +157,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 		g.setColor(Color.WHITE);
 		g.setFont(titleFont);
 		g.drawString("Game Over", 360, 200);
-		g.drawString("Score:", 370, 400);
+		g.drawString("Score: " + score, 370, 400);
 		g.setFont(subTitleFont);
 		g.drawString("Enter to go back to menu", 275, 475);
 	}
@@ -170,10 +181,6 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 				if(gameStage == MENU) {
 				gameStage = GAME;
 			}
-			//TEMP
-				else if(gameStage == GAME) {
-				gameStage = END;
-			}
 		} else if(e.getKeyCode() == KeyEvent.VK_SPACE) {
 			JOptionPane.showMessageDialog(null, "Instructions");
 		}
@@ -186,7 +193,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 		int yToPlayer =  e.getY() - player.getY();
 		
 	//Make the Bullet
-		Bullet bullet = new Bullet(player.getX(), player.getY(), 10, 10);
+		Bullet bullet = new Bullet(player.getX(), player.getY(), 20, 10);
 		bullets.add(bullet);
 		
 	//Find direction to shoot and send
