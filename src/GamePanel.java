@@ -5,14 +5,20 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements KeyListener, MouseListener {
 //Variables
+	public static BufferedImage image;
+	public static boolean needImage = true;
+	public static boolean gotImage = false;	
+
 	static int MENU = 0;
 	static int GAME = 1;
 	static int END = 2;
@@ -27,12 +33,23 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 	EnemySpawner enemySpawner = new EnemySpawner();
 
 	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-	private int score = 0;
+	int score = 0;
+	int personalBest = 0;
 	
+	GamePanel() {
+		if (needImage) {
+		    loadImage("background.jpg");
+		}
+	}
 	void game() {
 	//Background
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+		if (gotImage) {
+			g.drawImage(image, 0, 0, Game.WIDTH, Game.HEIGHT, null);
+		} else {
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+		}
+		
 	
 	//Draw Game
 		//numBullets + score
@@ -131,17 +148,19 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 
 	void menu() {
 	//Background
+		
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 
 	// Text
 		g.setColor(Color.WHITE);
 		g.setFont(titleFont);
-		g.drawString("Game", 430, 200);
+		g.drawString("Dog Attack", 380, 200);
 
 		g.setFont(subTitleFont);
 		g.drawString("Enter to start", 380, 400);
 		g.drawString("Space for Instructions", 305, 475);
+		g.drawString("Shift for Tips", 370, 525);
 		
 	//Dont delete
 		score = 0;
@@ -149,6 +168,10 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 	}
 
 	void end() {
+	//PB
+		if(score>personalBest) {
+			personalBest=score;
+		}
 	// Background
 		g.setColor(Color.RED);
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
@@ -157,9 +180,10 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 		g.setColor(Color.WHITE);
 		g.setFont(titleFont);
 		g.drawString("Game Over", 360, 200);
-		g.drawString("Score: " + score, 370, 400);
+		g.drawString("Score: " + score, 380, 400);
 		g.setFont(subTitleFont);
-		g.drawString("Enter to go back to menu", 275, 475);
+		g.drawString("Personal Best: " + personalBest, 330, 440);
+		g.drawString("Enter to go back to menu", 275, 570);
 	}
 
 	@Override public void keyPressed(KeyEvent e) {
@@ -182,7 +206,9 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 				gameStage = GAME;
 			}
 		} else if(e.getKeyCode() == KeyEvent.VK_SPACE) {
-			JOptionPane.showMessageDialog(null, "Instructions");
+			JOptionPane.showMessageDialog(null, "Avoid the dogs and stop them with your bones to get score. You only have 10 bones but you can pick them back up\n\nArrow keys to move\nClick to shoot\n\nGo to tips for extra info");
+		} else if(e.getKeyCode() == KeyEvent.VK_SHIFT) {
+			JOptionPane.showMessageDialog(null, "The futher away you click, the faster your bones will go\nAs your score increases, more dogs will come; up to sixty points\nDogs cannot spawn on the bottom\nThe previous round's score decides the size of the starting wave of dogs(First round there is no starting wave)");
 		}
 	}
 	
@@ -202,6 +228,18 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 		
 	numBullets--;
 	}
+	}
+	
+	void loadImage(String imageFile) {
+	    if (needImage) {
+	        try {
+	            image = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
+		    gotImage = true;
+	        } catch (Exception e) {
+	            
+	        }
+	        needImage = false;
+	    }
 	}
 	
 	@Override public void mousePressed(MouseEvent e) {}

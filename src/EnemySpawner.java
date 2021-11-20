@@ -29,9 +29,9 @@ public class EnemySpawner implements ActionListener {
 	
 	void updateTimer(int score) {
 	//Change timer speed to match score
-		speed = 1000-(score*20);
-		if(speed<200) {
-			speed = 100;
+		speed = 1000-(score*10);
+		if(speed<400) {
+			speed = 400;
 		}
 		t.setDelay(speed);
 	}
