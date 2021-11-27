@@ -9,7 +9,9 @@ public class Player extends GameObject{
 
 	int speed = 10;
 	
+	
 	public static BufferedImage image;
+	public static BufferedImage greyImage;
 	public static boolean needImage = true;
 	public static boolean gotImage = false;	
 	
@@ -17,17 +19,27 @@ public class Player extends GameObject{
 		super(x, y, width, height);
 		
 		if (needImage) {
-		    loadImage ("cannon200.png");
+		    loadImage ("cannon200.png", "cannon200 copy.png");
 		}
 	}
-		void draw(Graphics g) {
+		void draw(Graphics g, int bullets) {
 			super.update();
 			if (gotImage) {
-				g.drawImage(image, x, y, width, height, null);
-			} else {
-				g.setColor(Color.BLUE);
+				if(bullets>0) {
+					g.drawImage(image, x, y, width, height, null);
+				} else {
+					g.drawImage(greyImage, x, y, width, height, null);
+				}
+			} else { 
+				if(bullets>0) {
+					g.setColor(Color.BLUE);
+				} else {
+					g.setColor(Color.GRAY);
+				}
 				g.fillRect(x, y, width, height);
 			}
+			//Out of bullets
+			
 				
 			//Check if out
 				if(super.y>Game.HEIGHT-90) {
@@ -39,9 +51,13 @@ public class Player extends GameObject{
 				} else if(x<0) {
 					x=0;
 				}
+		
 			
 		}
-	
+	/*void drawOutOfBullets(Graphics g) {
+		g.setColor(Color.RED);
+		g.drawRect(x, y, width, height);
+	}*/
 //Movment
 	void up() {
 		y-=speed;
@@ -65,10 +81,11 @@ public class Player extends GameObject{
 	
 	
 	
-	void loadImage(String imageFile) {
+	void loadImage(String imageFile, String greyImageFile) {
 	    if (needImage) {
 	        try {
 	            image = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
+	            greyImage = ImageIO.read(this.getClass().getResourceAsStream(greyImageFile));
 		    gotImage = true;
 	        } catch (Exception e) {
 	            

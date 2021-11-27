@@ -57,8 +57,11 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 			g.setFont(subTitleFont);
 			g.drawString("Bullets: " + numBullets, Game.WIDTH-220, 30);
 			g.drawString("Score: " + score, Game.WIDTH-220, 60);
+			/*if(numBullets==0) {
+				player.drawOutOfBullets(g);
+			}*/
 		//Game
-			player.draw(g);
+			player.draw(g, numBullets);
 		//Loop other objects
 			for (int i = 0; i < bullets.size(); i++) {
 				bullets.get(i).draw(g);
@@ -205,14 +208,14 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 				if(gameStage == MENU) {
 				gameStage = GAME;
 			}
-		} else if(e.getKeyCode() == KeyEvent.VK_SPACE) {
-			JOptionPane.showMessageDialog(null, "Avoid the dogs and stop them with your bones to get score. You only have 10 bones but you can pick them back up\n\nArrow keys to move\nClick to shoot\n\nGo to tips for extra info");
-		} else if(e.getKeyCode() == KeyEvent.VK_SHIFT) {
-			JOptionPane.showMessageDialog(null, "The futher away you click, the faster your bones will go\nAs your score increases, more dogs will come; up to sixty points\nDogs cannot spawn on the bottom\nThe previous round's score decides the size of the starting wave of dogs(First round there is no starting wave)");
+		} else if(e.getKeyCode() == KeyEvent.VK_SPACE && gameStage==MENU) {
+			JOptionPane.showMessageDialog(null, "Avoid the dogs and stop them with your bones to get score(objective). You only have 10 bones but you can pick them back up\n\nArrow keys to move\nClick to shoot\n\nGo to tips for extra info", "Instructions", JOptionPane.INFORMATION_MESSAGE);
+		} else if(e.getKeyCode() == KeyEvent.VK_SHIFT && gameStage==MENU) {
+			JOptionPane.showMessageDialog(null, "The futher away you click, the faster your bones will go\nAs your score increases, more dogs will come; up to sixty points\nDogs cannot spawn on the bottom\nThe previous round's score decides the size of the starting wave of dogs(First round there is no starting wave)", "Tips", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	
-	public void mouseClicked(MouseEvent e) {
+	public void mousePressed(MouseEvent e) {
 	if(numBullets>0) {
 	//Get direction to shoot, and send to new Bullet
 		int xToPlayer =  e.getX() - player.getX();
@@ -242,7 +245,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 	    }
 	}
 	
-	@Override public void mousePressed(MouseEvent e) {}
+	@Override public void mouseClicked(MouseEvent e) {}
 	@Override public void mouseReleased(MouseEvent e) {}
 	@Override public void mouseEntered(MouseEvent e) {}
 	@Override public void mouseExited(MouseEvent e) {}

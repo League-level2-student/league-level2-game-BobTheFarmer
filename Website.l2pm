@@ -1,0 +1,29 @@
+*<*GAMETITLE*>*
+Dog Attack
+*<*NAME*>*
+Colin Weis
+*<*LINK*>*
+
+*<*IMAGES*>*
+*<*ENDALLIMAGES*>*
+*<*FONT*>*
+Arial
+*<*COLORS*>*
+220
+220
+220
+*<*QUESTIONS*>*
+I choose to make this game because I like games that escalate in difficulty. I choose to make it about dogs because I have a dog.
+*<*ENDQUESTION*>*
+I learned that my bones where not shooting consistently, that my instructions JOptionPane was not labeled, and that there should be an indicator for when you are out of bullets
+*<*ENDQUESTION*>*
+My game's largest class GamePanel, controls the UI and other classes. All of the classes except for Game and Runner are controlled by GamePanel
+*<*ENDQUESTION*>*
+One aspect of my game that I am proud of is the bullet physics. I made the bullets have both xMomentum and yMomentum which allow then to bounce and slow over time. I also then added deadX and deadY to allow the bullets to not be run when they are done bouncing.
+*<*ENDQUESTION*>*
+The most challenging part of this project was getting the bullets to shoot in the correct direction. The bullets were not percise as I had to use integers divided by 30, so I had to add gravity to the bullets to make it less noticable. They also would scale speed with how far away you clicked, which I made into a feature in the end.
+*<*ENDQUESTION*>*
+One major improvement I think my game could use is difficulty settings; the game can be very difficult for people who have not played it a lot which is not something I considered while creating it. I also might add more features like different types of bullets.
+*<*ENDQUESTION*>*
+*<*CUSTOMTOPICS*>*
+*#*EOF*#*
