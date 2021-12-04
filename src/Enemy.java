@@ -30,7 +30,7 @@ public class Enemy extends GameObject{
 			g.setColor(Color.RED);
 			g.fillRect(x, y, width, height);
 		}
-			
+		if(!GamePanel.paused) {
 		//Move toward player
 			movmentCooldown++;
 			if(movmentCooldown == 10) {
@@ -50,6 +50,7 @@ public class Enemy extends GameObject{
 				}
 				movmentCooldown = 0;
 			}
+		}
 			
 	}
 	void loadImage(String imageFile) {

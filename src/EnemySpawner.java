@@ -37,6 +37,7 @@ public class EnemySpawner implements ActionListener {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(!GamePanel.paused) {
 		
 	//MAKE ENEMYS	
 		//Choose a edge to spawn on
@@ -56,6 +57,7 @@ public class EnemySpawner implements ActionListener {
 		//Make enemy
 			Enemy enemy = new Enemy(spawnX, spawnY, 20, 20);
 			enemys.add(enemy);
+		}
 	}
 	
 	

@@ -24,6 +24,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 	static int END = 2;
 	int gameStage = MENU;
 	int numBullets = 10;
+	static boolean paused = false;
 
 	Graphics g;
 	Font titleFont = new Font("Oxygen", Font.PLAIN, 48);
@@ -191,13 +192,13 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 
 	@Override public void keyPressed(KeyEvent e) {
 	//Check for player movment
-		if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+		if(e.getKeyCode() == KeyEvent.VK_RIGHT && !paused) {
 			player.right();
-		} else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+		} else if(e.getKeyCode() == KeyEvent.VK_LEFT && !paused) {
 			player.left();
-		} else if(e.getKeyCode() == KeyEvent.VK_UP) {
+		} else if(e.getKeyCode() == KeyEvent.VK_UP && !paused) {
 			player.up();
-		} else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
+		} else if(e.getKeyCode() == KeyEvent.VK_DOWN && !paused) {
 			player.down();
 		}
 	//Check For Menu Nav
@@ -211,7 +212,13 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener {
 		} else if(e.getKeyCode() == KeyEvent.VK_SPACE && gameStage==MENU) {
 			JOptionPane.showMessageDialog(null, "Avoid the dogs and stop them with your bones to get score(objective). You only have 10 bones but you can pick them back up\n\nArrow keys to move\nClick to shoot\n\nGo to tips for extra info", "Instructions", JOptionPane.INFORMATION_MESSAGE);
 		} else if(e.getKeyCode() == KeyEvent.VK_SHIFT && gameStage==MENU) {
-			JOptionPane.showMessageDialog(null, "The futher away you click, the faster your bones will go\nAs your score increases, more dogs will come; up to sixty points\nDogs cannot spawn on the bottom\nThe previous round's score decides the size of the starting wave of dogs(First round there is no starting wave)", "Tips", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "The futher away you click, the faster your bones will go\nAs your score increases, more dogs will come; up to sixty points\nDogs cannot spawn on the bottom\nThe previous round's score decides the size of the starting wave of dogs(First round there is no starting wave)\n'p' to pause", "Tips", JOptionPane.INFORMATION_MESSAGE);
+		} else if(e.getKeyCode() == KeyEvent.VK_P) {
+			if(paused) {
+				paused = false;
+			} else {
+				paused = true;
+			}
 		}
 	}
 	

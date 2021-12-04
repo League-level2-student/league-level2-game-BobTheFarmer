@@ -35,15 +35,16 @@ public class Bullet extends GameObject{
 		//Draw+Apply forces
 		
 		
-			x+=xMovment;
-			y+=yMovment;
+			
 			if (gotImage) {
 				g.drawImage(image, x, y, width, height, null);
 			} else {
 				g.setColor(Color.MAGENTA);
 				g.fillOval(x, y, width, height);
 			}
-			
+			if(!GamePanel.paused) {
+			x+=xMovment;
+			y+=yMovment;
 			
 			cooldown++;
 			cooldown2++;
@@ -96,6 +97,7 @@ public class Bullet extends GameObject{
 			}
 			if(x>Game.WIDTH) {
 				xMovment = 0-xMovment;
+			}
 			}
 }
 	void loadImage(String imageFile) {
